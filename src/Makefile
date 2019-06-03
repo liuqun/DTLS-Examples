@@ -1,8 +1,9 @@
+prefix = /opt/openssl
+libdir = $(prefix)/lib
 
 CFLAGS 		= -std=c99 -pedantic -Wall -g -Wextra -Wno-unused-parameter -Wno-unused-function -Wno-overlength-strings
-INCLUDES 	= -I/usr/local/include
-LFLAGS 		= -L/usr/local/lib
-LIBS 		= -lssl -lcrypto -pthread -lm -ldl
+INCLUDES 	= -I$(prefix)/include
+LIBS 		= $(libdir)/libssl.a $(libdir)/libcrypto.a -pthread -lm -ldl
 
 #CFLAGS		+= -fsanitize=address -fno-omit-frame-pointer -g
 #CFLAGS		+= -fsanitize=memory -fno-omit-frame-pointer -g -fsanitize-memory-track-origins
