@@ -1,5 +1,5 @@
-prefix = /opt/openssl
-libdir = $(prefix)/lib
+prefix = /usr
+libdir = $(prefix)/lib/x86_64-linux-gnu
 
 CFLAGS 		= -std=c99 -pedantic -Wall -g -Wextra -Wno-unused-parameter -Wno-unused-function -Wno-overlength-strings
 INCLUDES 	= -I$(prefix)/include
@@ -14,7 +14,7 @@ LIBS 		= $(libdir)/libssl.a $(libdir)/libcrypto.a -pthread -lm -ldl
 #INCLUDES	= -I/usr/local/opt/openssl@1.1/include
 #LFLAGS		= -L/usr/local/opt/openssl@1.1/lib
 
-all		: sctp udp
+all		: udp
 sctp	: dtls_sctp_chargen dtls_sctp_discard dtls_sctp_echo
 udp		: dtls_udp_chargen dtls_udp_discard dtls_udp_echo
 
