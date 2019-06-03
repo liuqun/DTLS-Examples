@@ -63,6 +63,20 @@ In order to run the example programs, the required server and client certificate
 * server-cert.pem
 * server-key.pem
 
+Shell script [cert.sh](./cert.sh) can be used to create the certificates above.
+Use:
+```
+./cert.sh
+mkdir certs
+cp *-cert.pem certs/
+cp client-key.pem server-key.pem certs/
+cp -r certs src/certs
+```
+```
+$ ls certs/
+ca-cert.pem client-cert.pem client-key.pem server-cert.pem server-key.pem
+```
+
 The following commands create signed certificates for client and server of the samples above.
 ```
 touch ca-db-index
@@ -94,8 +108,11 @@ The client connects via OpenSSL's `s_client` application and sends input read fr
 The server echos received messages.
 
 ```
-$ dtls_udp_echo -V -L 127.0.0.1
+$ ./dtls_udp_echo -V -L 127.0.0.1
 ```
 ```
-$ openssl s_client -dtls -connect 127.0.0.1:23232
+$ openssl s_client -cert certs/client-cert.pem \
+                   -key certs/client-key.pem \
+                   -CAfile certs/ca-cert.pem \
+                   -dtls1_2 -connect 127.0.0.1:23232
 ```
